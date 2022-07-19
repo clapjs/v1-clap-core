@@ -1,5 +1,5 @@
 {
-  "name": "clap-mongoose-core",
+  "name": "@clap/core",
   "version": "1.0.0",
   "description": "",
   "dependencies": {
