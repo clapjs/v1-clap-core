@@ -6,7 +6,7 @@ const Controller = require('egg').Controller;
 const moment = require('moment')
 const generatePassword = require('password-generator');
 
-class authority extends Controller {
+class ClapAuthCtrl extends Controller {
     constructor(ctx) {
         super(ctx);
     }
@@ -156,4 +156,4 @@ class authority extends Controller {
     }
 }
 
-module.exports = authority;
+module.exports = ClapAuthCtrl;

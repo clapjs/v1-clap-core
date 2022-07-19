@@ -20,9 +20,9 @@ module.exports = {
         enable: true,
         package: 'egg-socket.io',
     },
-    clapMongoose: {
+    mongoose: {
         enable: true,
-        package: 'egg-clap-mongoose',
+        package: '@clapjs/egg-mongoose',
     },
 };
 

@@ -4,7 +4,7 @@
  */
 const Controller = require('egg').Controller;
 
-class model extends Controller {
+class ClapModelCtrl extends Controller {
     /**
      * @summary 获取模型全部数据
      * @description 根据模型获取模型全部数据
@@ -304,4 +304,4 @@ class model extends Controller {
     }
 }
 
-module.exports = model;
+module.exports = ClapModelCtrl;
