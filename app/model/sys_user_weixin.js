@@ -4,7 +4,7 @@ module.exports = app => {
     const attributes = {
         idUser: {
             name: 'idUser',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'sys_user'
         },
         openid: {

@@ -12,7 +12,7 @@ module.exports = app => {
         },
         idBranch: {
             name: '所属部门',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'org_branch'
         },
         job: {
@@ -98,10 +98,10 @@ module.exports = app => {
         },
         idUser: {
             name: '登录用户',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'sys_user'
         },
-        familyInfo: [new app.mongoose.Schema({
+        familyInfo: [new app.Mongoose.Schema({
             call: {
                 name: '称呼',
                 type: String
@@ -119,7 +119,7 @@ module.exports = app => {
                 type: String
             },
         })],
-        workInfo: [new app.mongoose.Schema({
+        workInfo: [new app.Mongoose.Schema({
             range: {
                 name: '起止时间',
                 type: Array

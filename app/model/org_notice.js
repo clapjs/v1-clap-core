@@ -4,7 +4,7 @@ module.exports = app => {
     const attributes = {
         idNewsClass: {
             name: '公告分类',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'org_notice_class'
         },
         title: {
@@ -20,10 +20,10 @@ module.exports = app => {
             type: Number,
             default: 999
         },
-        idFiles: [new app.mongoose.Schema({
+        idFiles: [new app.Mongoose.Schema({
             idFile: {
                 name: '附件',
-                type: app.mongoose.Schema.ObjectId,
+                type: app.Mongoose.Schema.ObjectId,
                 ref: 'sys_file'
             },
         })],

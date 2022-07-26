@@ -4,7 +4,7 @@ module.exports = app => {
     const attributes = {
         idApplication: {
             name: '所属应用',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_application'
         },
         code: {
@@ -38,12 +38,12 @@ module.exports = app => {
         },
         idEntityList: {
             name: 'idEntityList',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_entity'
         },
         idEntityCard: {
             name: 'idEntityCard',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_entity'
         },
         listConfig: {

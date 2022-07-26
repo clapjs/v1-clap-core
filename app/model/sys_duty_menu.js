@@ -4,17 +4,17 @@ module.exports = app => {
     const attributes = {
         idApplication: {
             name: 'idApplication',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_application'
         },
         idDuty: {
             name: 'idDuty',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'sys_duty'
         },
         idMenu: {
             name: 'idMenu',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_menu'
         },
         scope:{

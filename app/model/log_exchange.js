@@ -20,12 +20,12 @@ module.exports = app => {
         },
         idApplication: {
             name: '来源应用',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_application'
         },
         idPage: {
             name: '数据页面',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_page'
         },
         event: {

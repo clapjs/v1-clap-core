@@ -4,7 +4,7 @@ module.exports = app => {
     const attributes = {
         idApplication: {
             name: '所属应用',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_application'
         },
         platform: {

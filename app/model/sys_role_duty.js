@@ -4,12 +4,12 @@ module.exports = app => {
     const attributes = {
         idRole: {
             name: 'idRole',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'sys_role'
         },
         idDuty: {
             name: 'idDuty',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'sys_duty'
         },
     };

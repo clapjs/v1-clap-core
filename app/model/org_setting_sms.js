@@ -4,7 +4,7 @@ module.exports = app => {
     const attributes = {
         idEvent: {
             name: '短信事件',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_event'
         },
         value: {

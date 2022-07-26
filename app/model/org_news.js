@@ -4,7 +4,7 @@ module.exports = app => {
     const attributes = {
         idNewsClass: {
             name: '新闻分类',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'org_news_class'
         },
         title: {
@@ -17,12 +17,12 @@ module.exports = app => {
         },
         idCarousel: {
             name: '滚动大图',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'sys_file'
         },
         idThumb: {
             name: '缩略图',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'sys_file'
         },
         content: {

@@ -4,7 +4,7 @@ module.exports = app => {
     const attributes = {
         idMenu: {
             name: '所属菜单',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_menu'
         },
         name: {

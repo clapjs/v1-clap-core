@@ -4,7 +4,7 @@ module.exports = app => {
     const attributes = {
         idPage: {
             name: '所属页面',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_page'
         },
         mode: {
@@ -68,12 +68,12 @@ module.exports = app => {
         },
         idEnum: {
             name: '绑定枚举',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_enum'
         },
         idRefer: {
             name: '绑定参照',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_page'
         },
         referType: {

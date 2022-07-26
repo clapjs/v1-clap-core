@@ -4,7 +4,7 @@ module.exports = app => {
     const attributes = {
         idPage: {
             name: 'idPage',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_page'
         },
         name: {

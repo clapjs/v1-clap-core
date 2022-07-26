@@ -16,7 +16,7 @@ module.exports = app => {
         },
         idNoticeClass: {
             name: '通知类别id',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'sys_notice_class'
         },
         publishType: {
@@ -29,7 +29,7 @@ module.exports = app => {
         },
         idUser: {
             name: '用户',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'sys_user'
         },
     };

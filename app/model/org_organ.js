@@ -17,7 +17,7 @@ module.exports = app => {
         },
         idGroupOrgan: {
             name: '集团组织',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'org_organ'
         },
         order: {

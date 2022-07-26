@@ -8,7 +8,7 @@ module.exports = app => {
         },
         idApplicationGroup: {
             name: '所属应用分组',
-            type: app.mongoose.Schema.ObjectId,
+            type: app.Mongoose.Schema.ObjectId,
             ref: 'cdp_application_group'
         },
         name: {

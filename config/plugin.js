@@ -22,7 +22,7 @@ module.exports = {
     },
     mongoose: {
         enable: true,
-        package: '@clapjs/egg-mongoose',
+        package: 'egg-mongoose',
     },
 };
 
