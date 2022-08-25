@@ -7,7 +7,7 @@ module.exports = {
   clapMongooseSchema(attributes, hasOwnerAttr, hasFlowAttr) {
     const Schema = new this.Mongoose.Schema(attributes, { timestamps: true });
 
-    // Schema.plugin(require('mongoose-deep-populate')(this.Mongoose));
+    Schema.plugin(require('mongoose-deep-populate')(this.Mongoose));
 
     // 默认添加组织记录归属字段,如属性为false则不添加
     if (hasOwnerAttr || hasOwnerAttr === void (0)) {

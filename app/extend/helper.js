@@ -3,5 +3,5 @@
 module.exports = {
   get humps() {
     return require('humps');
-  }
+  },
 };
