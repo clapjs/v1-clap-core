@@ -364,7 +364,7 @@ class ClapAuthCtrl extends Controller {
               idDuty: {
                 $in: user.duties,
               },
-              idApplication: new this.ctx.app.mongoose.Types.ObjectId(this.ctx.request.query.application),
+              idApplication: new this.ctx.app.Mongoose.Types.ObjectId(this.ctx.request.query.application),
             },
           }, {
             $group: {
@@ -462,7 +462,7 @@ class ClapAuthCtrl extends Controller {
       const aggregate = await this.ctx.model.CdpMenuButton.aggregate([
         {
           $match: {
-            idMenu: new this.ctx.app.mongoose.Types.ObjectId(this.ctx.request.query.menu),
+            idMenu: new this.ctx.app.Mongoose.Types.ObjectId(this.ctx.request.query.menu),
           },
         },
         {
@@ -499,7 +499,7 @@ class ClapAuthCtrl extends Controller {
               pipeline: [{
                 $match: { $expr: { $and: [
                   { $eq: [ '$$idDuty', '$idDuty' ] },
-                  { $eq: [ this.ctx.helper.toObjectID(this.ctx.request.query.menu), '$idMenu' ] },
+                  { $eq: [ new this.ctx.app.Mongoose.Types.ObjectId(this.ctx.request.query.menu), '$idMenu' ] },
                 ] } },
               }],
               as: 'button',
@@ -592,7 +592,7 @@ class ClapAuthCtrl extends Controller {
               idRole: {
                 $in: user.roles,
               },
-              'dutyMenu.idMenu': this.ctx.helper.toObjectID(this.ctx.request.query.menu),
+              'dutyMenu.idMenu': new this.ctx.app.Mongoose.Types.ObjectId(this.ctx.request.query.menu),
             },
           }, {
             $group: {
@@ -683,7 +683,7 @@ class ClapAuthCtrl extends Controller {
               idRole: {
                 $in: user.roles,
               },
-              'dutyMenu.idMenu': this.ctx.helper.toObjectID(this.ctx.request.query.menu),
+              'dutyMenu.idMenu': new this.ctx.app.Mongoose.Types.ObjectId(this.ctx.request.query.menu),
             },
           }, {
             $group: {
