@@ -1,29 +1,17 @@
 'use strict';
 
 module.exports = app => {
-  const attributes = {
-    code: {
-      name: '分组编码',
-      type: String,
-    },
-    name: {
-      name: '分组名称',
-      type: String,
-    },
-    range: {
-      name: '包含用户类型',
-      type: Array,
-    },
-    isPermit: {
-      name: '是否控制权限',
-      type: Boolean,
-      default: true,
-    },
-    order: {
-      name: '排序',
-      type: Number,
-      default: 999,
-    },
-  };
-  return app.clapMongooseSchema(attributes, false);
+  const schema =  app.clapMongooseSchema(require('./entity/cdp_application_group')(app));
+
+  schema.pre('save', async (next) => {
+    /**在此定义变量或引入模块*/
+    next();
+  })
+
+  schema.post('save', function(doc, next) {
+    /**在此定义变量或引入模块*/
+    next();
+  });
+
+  return schema;
 };
