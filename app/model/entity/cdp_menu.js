@@ -42,6 +42,11 @@ module.exports = app => {
       name: '路由地址',
       type: String,
     },
+    resolveType: {
+      name: '路由组件类型',
+      type: String,
+      default:'LocalPkg'
+    },
     resolvePath: {
       name: '路由组件',
       type: String,
