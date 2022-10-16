@@ -2,6 +2,11 @@
 
 module.exports = app => {
   return {
+    p_id: {
+      name: '上级节点',
+      type: String,
+      default: '0',
+    },
     code: {
       name: '枚举编码',
       type: String,
@@ -10,14 +15,9 @@ module.exports = app => {
       name: '枚举名称',
       type: String,
     },
-    type: {
-      name: '枚举类型',
+    color: {
+      name: '字体颜色',
       type: String,
-      default: 'String',
-    },
-    range: {
-      name: '枚举值域',
-      type: Array,
     },
     order: {
       name: '排序',
