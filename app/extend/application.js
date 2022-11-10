@@ -4,71 +4,113 @@ module.exports = {
   loadClapRouter(app) {
     require('../router')(app);
   },
-  clapMongooseSchema(attributes, hasOwnerAttr, hasFlowAttr) {
-    const Schema = new this.Mongoose.Schema(attributes, { timestamps: true });
-
+  MongoEntity(fields,entityType="base",controlType="Global"){
+    const Schema = new this.Mongoose.Schema(fields, { timestamps: true });
     Schema.plugin(require('mongoose-deep-populate')(this.Mongoose));
-
-    // 默认添加组织记录归属字段,如属性为false则不添加
-    if (hasOwnerAttr || hasOwnerAttr === void (0)) {
+    if(entityType==='tree'){
+      Schema.add({
+        p_id: {
+          name: '上级节点',
+          type: String,
+          default: '0',
+        },
+      })
+    }
+    if(entityType==='flow'){
+      Schema.add({
+        idSubmitUser: {
+          name: '提交人ID',
+          type: this.Mongoose.Schema.ObjectId,
+          ref: 'sys_user',
+        },
+        submitUser: {
+          name: '提交人',
+          type: String,
+        },
+        submitAt: {
+          name: '提交时间',
+          type: Date,
+        },
+        idVerifyUser: {
+          name: '审核人ID',
+          type: this.Mongoose.Schema.ObjectId,
+          ref: 'sys_user',
+        },
+        verifyUser: {
+          name: '审核人',
+          type: String,
+        },
+        verifyAt: {
+          name: '审核时间',
+          type: Date,
+        },
+        idCloseUser: {
+          name: '关闭人ID',
+          type: this.Mongoose.Schema.ObjectId,
+          ref: 'sys_user',
+        },
+        closeUser: {
+          name: '关闭人',
+          type: String,
+        },
+        closeAt: {
+          name: '关闭时间',
+          type: Date,
+        },
+        idOpenUser: {
+          name: '审核人ID',
+          type: this.Mongoose.Schema.ObjectId,
+          ref: 'sys_user',
+        },
+        openUser: {
+          name: '打开人',
+          type: String,
+        },
+        openAt: {
+          name: '打开时间',
+          type: Date,
+        }
+      });
+    }
+    if(['Group','Organ','GroupAndOrgan'].includes(controlType)){
       Schema.add({
         idOrgan: {
           type: this.Mongoose.Schema.ObjectId,
           ref: 'org_organ',
         },
-      });
-    }
-    // 添加数据审批字段
-    if (hasFlowAttr) {
-      Schema.add({
-        submitUser: {
-          name: '提交人',
-          type: this.Mongoose.Schema.ObjectId,
-          ref: 'sys_user',
-        },
-        submitAt: {
-          name: '提交日期',
-          type: Date,
-        },
-        verifyUser: {
-          name: '审核人',
-          type: this.Mongoose.Schema.ObjectId,
-          ref: 'sys_user',
-        },
-        verifyAt: {
-          name: '审核日期',
-          type: Date,
-        },
-        closeUser: {
-          name: '关闭人',
-          type: this.Mongoose.Schema.ObjectId,
-          ref: 'sys_user',
-        },
-        closeAt: {
-          name: '关闭日期',
-          type: Date,
-        },
-        closeMemo: {
-          name: '关闭备注',
+        organCode: {
+          name: '组织编码',
           type: String,
+          belong:'idOrgan'
         },
-        openUser: {
-          name: '打开人',
-          type: this.Mongoose.Schema.ObjectId,
-          ref: 'sys_user',
-        },
-        openAt: {
-          name: '打开日期',
-          type: Date,
-        },
-        openMemo: {
-          name: '打开备注',
+        organName: {
+          name: '组织名称',
           type: String,
+          belong:'idOrgan'
         },
       });
     }
-
     Schema.add({
+      idCreatedUser: {
+        name: '创建人ID',
+        type: this.Mongoose.Schema.ObjectId,
+        ref: 'sys_user',
+      },
+      createdUser: {
+        name: '创建人',
+        type: String,
+        belong:'idCreatedUser'
+      },
+      idUpdatedUser: {
+        name: '修改人ID',
+        type: this.Mongoose.Schema.ObjectId,
+        ref: 'sys_user',
+      },
+      updatedUser: {
+        name: '修改人',
+        type: String,
+        belong:'idUpdatedUser'
+      },
       __s: {
         name: '状态标记',
         type: Number,
@@ -79,22 +121,9 @@ module.exports = {
         type: Number,
         default: 0,
       },
-      createdUser: {
-        name: '创建人',
-        type: this.Mongoose.Schema.ObjectId,
-        ref: 'sys_user',
-      },
-      updatedUser: {
-        name: '修改人',
-        type: this.Mongoose.Schema.ObjectId,
-        ref: 'sys_user',
-      },
     });
-
     Schema.set('toJSON', { getters: true, virtuals: true });
-
     Schema.set('toObject', { getters: true, virtuals: true });
-
     return Schema;
-  },
+  }
 };

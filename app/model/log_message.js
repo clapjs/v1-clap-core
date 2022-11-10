@@ -42,5 +42,5 @@ module.exports = app => {
       type: Boolean,
     },
   };
-  return app.clapMongooseSchema(attributes);
+  return app.MongoEntity(attributes);
 };

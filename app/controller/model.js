@@ -37,28 +37,37 @@ class ClapModelCtrl extends Controller {
       code: '0',
     };
 
-    const count = await ctx.collection.countDocuments(filter);
-    let records = await ctx.collection.find(filter, project)
-      .sort(order)
-      .skip(skip)
-      .limit(limit)
-      .catch(e => {
-        if (e) {
-          error.code = e.code;
-          error.message = e.message;
-        }
-        console.info(e);
-      });
-    if (populate) {
-      records = await ctx.collection.deepPopulate(records, populate.split(','))
-        .catch(e => {
-          if (e) {
-            error.code = e.code;
-            error.message = e.message;
-          }
-          console.info(e);
-        });
+    const getCount=async ()=>{
+      return await ctx.collection.countDocuments(filter)
     }
+
+    const getRecords=async ()=>{
+      let records = await ctx.collection.find(filter, project)
+          .sort(order)
+          .skip(skip)
+          .limit(limit)
+          .catch(e => {
+            if (e) {
+              error.code = e.code;
+              error.message = e.message;
+            }
+            console.info(e);
+          });
+      if (populate) {
+        records = await ctx.collection.deepPopulate(records, populate.split(','))
+            .catch(e => {
+              if (e) {
+                error.code = e.code;
+                error.message = e.message;
+              }
+              console.info(e);
+            });
+      }
+      return records
+    }
+
+    const [ count, records ] = await Promise.all([ getCount(), getRecords() ]);
+
     ctx.body = error.code === '0' ? { error, count, records } : { error };
   }
 
@@ -276,20 +285,32 @@ class ClapModelCtrl extends Controller {
   async getByAggregate() {
     const { ctx } = this;
     const error = { code: '0' };
-    const { pipeline = [], prePipeline = [], filter = {}, like, likeBy } = ctx.request.body;
-    const { order, limit, skip } = GeneratorQuery(ctx.request.body);
-    const likeFilter = {};
-    if (like && likeBy) {
-      likeFilter.$or = [];
-      for (const key of likeBy.split(',')) {
-        likeFilter.$or.push({ [key]: new RegExp(like, 'i') });
+    const { pipeline = []} = ctx.request.body;
+    const { filter, order, skip, limit, populate } = GeneratorQuery(ctx.request.body);
+    Object.keys(filter).length > 0 && pipeline.push({ $match: filter });
+
+    const getPagingPipeline=(order, skip, limit)=> {
+      const pipeline = [];
+      if (order && order.split(' ')[0]) {
+        const sort = {};
+        order.split(' ').map(field => {
+          if (field && field[0] === '-') {
+            sort[field.slice(1)] = -1;
+          } else {
+            sort[field] = 1;
+          }
+        });
+        pipeline.push({$sort: sort});
       }
+      pipeline.push({$skip: skip ? skip : 0});
+      if (limit && limit !== 0) {
+        pipeline.push({$limit: limit});
+      }
+      return pipeline;
     }
-    Object.keys(filter).length > 0 && prePipeline.push({ $match: filter });
-    Object.keys(likeFilter).length > 0 && prePipeline.push({ $match: likeFilter });
 
     const getCount = async () => {
-      return await ctx.collection.aggregate([ ...ctx.helper.toObjectIDs(prePipeline) ]).option({ allowDiskUse: true })
+      return await ctx.collection.aggregate([ ...ctx.helper.objectToMongoObjectId(pipeline) ]).option({ allowDiskUse: true })
         .count('count')
         .then(res => (res[0] ? res[0].count : 0))
         .catch(e => {
@@ -300,12 +321,8 @@ class ClapModelCtrl extends Controller {
           console.info(e);
         });
     };
-    const getData = async () => {
-      return await ctx.collection.aggregate([ ...ctx.helper.toObjectIDs(prePipeline), ...ctx.service.mongodb.aggregate.getAggregatePaging({
-        order,
-        skip,
-        limit,
-      }), ...pipeline ]).option({ allowDiskUse: true })
+    const getRecords = async () => {
+      return await ctx.collection.aggregate([ ...ctx.helper.objectToMongoObjectId(pipeline), ...getPagingPipeline(order, skip, limit)]).option({ allowDiskUse: true })
         .catch(e => {
           if (e) {
             error.code = e.code;
@@ -314,7 +331,7 @@ class ClapModelCtrl extends Controller {
           console.info(e);
         });
     };
-    const [ count, records ] = await Promise.all([ getCount(), getData() ]);
+    const [ count, records ] = await Promise.all([ getCount(), getRecords() ]);
     ctx.body = error.code === '0' ? { error, count, records } : { error };
   }
 }

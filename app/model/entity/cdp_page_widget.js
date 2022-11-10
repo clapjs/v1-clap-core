@@ -7,96 +7,46 @@ module.exports = app => {
       type: app.Mongoose.Schema.ObjectId,
       ref: 'cdp_page',
     },
-    mode: {
-      name: '所属模式',
-      type: String,
-    },
     p_id: {
       name: '上级节点',
       type: String,
       default: '0',
     },
     name: {
-      name: '显示名称',
+      name: '字段名称',
       type: String,
     },
     field: {
-      name: '绑定字段',
+      name: '字段',
       type: String,
     },
-    widget: {
-      name: '绑定组件',
-      type: String,
+    listVisible:{
+      name: '列表可见',
+      type: Boolean,
+      default:true
     },
-    listWidth: {
-      name: '列表模式宽度',
+    editVisible:{
+      name: '表单可见',
+      type: Boolean,
+      default:true
+    },
+    listWidth:{
+      name: '列表宽度',
       type: Number,
+      default:120
     },
-    cardWidth: {
-      name: '卡片模式宽度',
+    editWidth:{
+      name: '表单宽度',
       type: Number,
+      default:24
     },
-    listVisible: {
-      name: '列表模式是否显示',
-      type: Boolean,
-      default: true,
-    },
-    cardVisible: {
-      name: '卡片模式是否显示',
-      type: Boolean,
-      default: true,
-    },
-    readonly: {
-      name: '是否只读',
-      type: Boolean,
-      default: false,
-    },
-    required: {
-      name: '是否必填',
-      type: Boolean,
-      default: false,
-    },
-    virtual: {
-      name: '是否虚拟字段',
-      type: Boolean,
-      default: false,
-    },
-    fuzzyQuery: {
-      name: '是否模糊匹配',
-      type: Boolean,
-      default: false,
-    },
-    idEnum: {
-      name: '绑定枚举',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'cdp_enum',
-    },
-    idRefer: {
-      name: '绑定参照',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'cdp_page',
-    },
-    referType: {
-      name: '参照方式',
+    widget:{
+      name: '组件',
       type: String,
     },
-    referStorage: {
-      name: '回填字段',
-      type: String,
-    },
-    referDisplay: {
-      name: '回显字段',
-      type: String,
-    },
-    referFilter: {
-      name: '参照条件',
-      type: Array,
-      default: [],
-    },
-    referFill: {
-      name: '数据填充',
-      type: Array,
-      default: [],
+    widgetConfig:{
+      name: '组件设置',
+      type: Object,
     },
     order: {
       name: '排序',
@@ -104,5 +54,4 @@ module.exports = app => {
       default: 999,
     },
   };
-
 };

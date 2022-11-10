@@ -35,5 +35,5 @@ module.exports = app => {
       default: 999,
     },
   };
-  return app.clapMongooseSchema(attributes);
+  return app.MongoEntity(attributes);
 };

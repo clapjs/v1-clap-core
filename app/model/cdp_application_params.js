@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = app => {
-  const schema =  app.clapMongooseSchema(require('./entity/cdp_application_params')(app));
+  const schema =  app.MongoEntity(require('./entity/cdp_application_params')(app));
 
   schema.pre('save', async (next) => {
     /**在此定义变量或引入模块*/

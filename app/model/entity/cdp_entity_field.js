@@ -24,29 +24,49 @@ module.exports = app => {
       name: '字段类型',
       type: String,
     },
-    refer: {
+    ref: {
       name: '关联实体',
+      type: String,
+    },
+    belong: {
+      name: '绑定字段',
       type: String,
     },
     childType: {
       name: '子实体类型',
       type: String,
     },
-    enums: {
-      name: '枚举值域',
-      type: Array,
-    },
     defaultValue: {
       name: '默认值',
       type: String,
     },
-    serial: {
-      name: '自动编码',
+    listVisible:{
+      name: '列表可见',
       type: Boolean,
+      default:true
     },
-    serialPrefix: {
-      name: '编码前缀',
+    editVisible:{
+      name: '表单可见',
+      type: Boolean,
+      default:true
+    },
+    listWidth:{
+      name: '列表宽度',
+      type: Number,
+      default:120
+    },
+    editWidth:{
+      name: '表单宽度',
+      type: Number,
+      default:24
+    },
+    widget:{
+      name: '组件',
       type: String,
+    },
+    widgetConfig:{
+      name: '组件设置',
+      type: Object,
     },
     order: {
       name: '排序',

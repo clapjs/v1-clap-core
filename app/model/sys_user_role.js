@@ -13,5 +13,5 @@ module.exports = app => {
       ref: 'sys_role',
     },
   };
-  return app.clapMongooseSchema(attributes, false);
+  return app.MongoEntity(attributes, false);
 };

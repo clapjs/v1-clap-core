@@ -37,6 +37,6 @@ module.exports = app => {
   };
 
 
-  return app.clapMongooseSchema(attributes, false);
+  return app.MongoEntity(attributes, false);
 
 };

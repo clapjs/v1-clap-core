@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = app => {
-  const schema =  app.clapMongooseSchema(require('./entity/cdp_enum_tree')(app));
+  const schema =  app.MongoEntity(require('./entity/cdp_enum_tree')(app));
 
   schema.pre('save', async (next) => {
     /**在此定义变量或引入模块*/

@@ -23,5 +23,5 @@ module.exports = app => {
       type: String,
     },
   };
-  return app.clapMongooseSchema(attributes, false);
+  return app.MongoEntity(attributes, false);
 };

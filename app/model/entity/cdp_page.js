@@ -19,62 +19,43 @@ module.exports = app => {
       name: '页面类型',
       type: String,
     },
-    layout: {
-      name: '页面布局',
-      type: String,
-      default: 'TL',
-    },
-    layoutConfig: {
-      name: '页面设置',
-      type: Object,
-      default: {
-        referFilter: [],
-      },
-    },
-    controlType: {
-      name: '管控类型',
-      type: String,
-      default: 'Organ',
-    },
-    idEntityList: {
-      name: 'idEntityList',
+    idEntity: {
+      name: 'idEntity',
       type: app.Mongoose.Schema.ObjectId,
       ref: 'cdp_entity',
     },
-    idEntityCard: {
-      name: 'idEntityCard',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'cdp_entity',
+    pipeline:{
+      type: String,
     },
     listConfig: {
-      name: 'listConfig',
+      name: '列表配置',
       type: Object,
       default: {
-        pipeline: {},
-      },
+        mode:'Table'
+      }
     },
-    defaultReferField: {
-      name: '布局识别字段',
-      type: String,
+    editConfig: {
+      name: '表单配置',
+      type: Object,
+      default: {
+        mode:'Modal',
+        compact:false
+      }
     },
-    defaultReferStorage: {
-      name: '默认回填字段',
-      type: String,
-      default: '_id',
+    reportConfig: {
+      name: '报表配置',
+      type: Object,
     },
-    defaultReferDisplay: {
-      name: '默认回显字段',
-      type: String,
+    graphConfig: {
+      name: '图标配置',
+      type: Object,
     },
-    defaultReferType: {
-      name: '默认管控类型',
-      type: String,
-      default: 'Organ',
-    },
-    isWorkflow: {
-      name: '是否启用审批流',
-      type: Boolean,
-    },
+    entities: [
+      {
+        type: app.Mongoose.Schema.ObjectId,
+        ref: 'cdp_entity',
+      }
+    ],
     order: {
       name: '排序',
       type: Number,
