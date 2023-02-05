@@ -1,16 +1,17 @@
 'use strict';
 
 module.exports = app => {
-  const attributes = {
-    idEvent: {
-      name: '短信事件',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'cdp_event',
-    },
-    value: {
-      name: '是否启用',
-      type: Boolean,
-    },
-  };
-  return app.MongoEntity(attributes);
+    const schema = app.MongoEntity(require('./entity/org_setting_sms')(app), 'base', 'Organ');
+
+    schema.pre('save', async (next) => {
+        /**在此定义变量或引入模块*/
+        next();
+    })
+
+    schema.post('save', function(doc, next) {
+        /**在此定义变量或引入模块*/
+        next();
+    });
+
+    return schema;
 };

@@ -1,20 +1,17 @@
 'use strict';
 
 module.exports = app => {
-  const attributes = {
-    code: {
-      name: '新闻分类编码',
-      type: String,
-    },
-    name: {
-      name: '新闻分类名称',
-      type: String,
-    },
-    order: {
-      name: '排序',
-      type: Number,
-      default: 999,
-    },
-  };
-  return app.MongoEntity(attributes);
+    const schema = app.MongoEntity(require('./entity/org_news_class')(app), 'base', 'Organ');
+
+    schema.pre('save', async (next) => {
+        /**在此定义变量或引入模块*/
+        next();
+    })
+
+    schema.post('save', function(doc, next) {
+        /**在此定义变量或引入模块*/
+        next();
+    });
+
+    return schema;
 };

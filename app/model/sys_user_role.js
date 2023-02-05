@@ -1,17 +1,17 @@
 'use strict';
 
 module.exports = app => {
-  const attributes = {
-    idUser: {
-      name: 'idUser',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'sys_user',
-    },
-    idRole: {
-      name: 'idRole',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'sys_role',
-    },
-  };
-  return app.MongoEntity(attributes, false);
+    const schema = app.MongoEntity(require('./entity/sys_user_role')(app), 'base', 'Global');
+
+    schema.pre('save', async (next) => {
+        /**在此定义变量或引入模块*/
+        next();
+    })
+
+    schema.post('save', function(doc, next) {
+        /**在此定义变量或引入模块*/
+        next();
+    });
+
+    return schema;
 };

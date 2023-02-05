@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = app => {
-  const schema =  app.MongoEntity(require('./entity/cdp_menu_button')(app));
+  const schema =  app.MongoEntity(require('./entity/cdp_button')(app));
 
   schema.pre('save', async (next) => {
     /**在此定义变量或引入模块*/

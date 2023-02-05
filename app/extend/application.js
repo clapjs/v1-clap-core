@@ -81,12 +81,14 @@ module.exports = {
         organCode: {
           name: '组织编码',
           type: String,
-          belong:'idOrgan'
+          belong:'idOrgan',
+          belongField:'organCode'
         },
         organName: {
           name: '组织名称',
           type: String,
-          belong:'idOrgan'
+          belong:'idOrgan',
+          belongField:'organName'
         },
       });
     }
@@ -99,7 +101,8 @@ module.exports = {
       createdUser: {
         name: '创建人',
         type: String,
-        belong:'idCreatedUser'
+        belong:'idCreatedUser',
+        belongField:'userName'
       },
       idUpdatedUser: {
         name: '修改人ID',
@@ -109,7 +112,8 @@ module.exports = {
       updatedUser: {
         name: '修改人',
         type: String,
-        belong:'idUpdatedUser'
+        belong:'idUpdatedUser',
+        belongField:'userName'
       },
       __s: {
         name: '状态标记',

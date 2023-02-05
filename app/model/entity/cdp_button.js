@@ -7,6 +7,11 @@ module.exports = app => {
       type: app.Mongoose.Schema.ObjectId,
       ref: 'cdp_menu',
     },
+    idPage: {
+      name: '所属页面',
+      type: app.Mongoose.Schema.ObjectId,
+      ref: 'cdp_page',
+    },
     name: {
       name: '按钮名称',
       type: String,
@@ -16,26 +21,21 @@ module.exports = app => {
       type: String,
     },
     type: {
-      name: '显示类型',
-      type: String,
-    },
-    action: {
-      name: '操作类型',
+      name: '按钮样式',
       type: String,
     },
     event: {
       name: '按钮事件',
       type: String,
     },
-    location: {
+    position: {
       name: '按钮位置',
       type: String,
-      default: 'default',
     },
     group: {
       name: '按钮分组',
       type: String,
-      default: 'default',
+      default:'general'
     },
     order: {
       name: '排序',
@@ -43,5 +43,4 @@ module.exports = app => {
       default: 999,
     },
   };
-
 };

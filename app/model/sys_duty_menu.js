@@ -1,27 +1,17 @@
 'use strict';
 
 module.exports = app => {
-  const attributes = {
-    idApplication: {
-      name: 'idApplication',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'cdp_application',
-    },
-    idDuty: {
-      name: 'idDuty',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'sys_duty',
-    },
-    idMenu: {
-      name: 'idMenu',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'cdp_menu',
-    },
-    scope: {
-      name: '数据权限',
-      type: Number,
-      default: 0,
-    },
-  };
-  return app.MongoEntity(attributes, false);
+    const schema = app.MongoEntity(require('./entity/sys_duty_menu')(app), 'base', 'Global');
+
+    schema.pre('save', async (next) => {
+        /**在此定义变量或引入模块*/
+        next();
+    })
+
+    schema.post('save', function(doc, next) {
+        /**在此定义变量或引入模块*/
+        next();
+    });
+
+    return schema;
 };

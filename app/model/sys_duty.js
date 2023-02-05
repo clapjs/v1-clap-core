@@ -1,19 +1,17 @@
 'use strict';
 
 module.exports = app => {
-  const attributes = {
-    dutyCode: {
-      name: '职责编码',
-      type: String,
-    },
-    dutyName: {
-      name: '职责名称',
-      type: String,
-    },
-    memo: {
-      name: '备注',
-      type: String,
-    },
-  };
-  return app.MongoEntity(attributes);
+    const schema = app.MongoEntity(require('./entity/sys_duty')(app), 'base', 'Global');
+
+    schema.pre('save', async (next) => {
+        /**在此定义变量或引入模块*/
+        next();
+    })
+
+    schema.post('save', function(doc, next) {
+        /**在此定义变量或引入模块*/
+        next();
+    });
+
+    return schema;
 };

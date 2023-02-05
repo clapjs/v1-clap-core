@@ -1,19 +1,17 @@
 'use strict';
 
 module.exports = app => {
-  const attributes = {
-    noticeClassCode: {
-      name: '通知类型编码',
-      type: String,
-    },
-    noticeClassName: {
-      name: '通知类型名称',
-      type: String,
-    },
-    memo: {
-      name: '备注',
-      type: String,
-    },
-  };
-  return app.MongoEntity(attributes, false);
+    const schema = app.MongoEntity(require('./entity/sys_notice_class')(app), 'base', 'Global');
+
+    schema.pre('save', async (next) => {
+        /**在此定义变量或引入模块*/
+        next();
+    })
+
+    schema.post('save', function(doc, next) {
+        /**在此定义变量或引入模块*/
+        next();
+    });
+
+    return schema;
 };

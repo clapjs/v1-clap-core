@@ -1,24 +1,17 @@
 'use strict';
 
 module.exports = app => {
-  const attributes = {
-    idPage: {
-      name: 'idPage',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'cdp_page',
-    },
-    name: {
-      name: 'name',
-      type: String,
-    },
-    type: {
-      name: 'type',
-      type: String,
-    },
-    filter: {
-      name: 'filter',
-      type: Array,
-    },
-  };
-  return app.MongoEntity(attributes);
+    const schema = app.MongoEntity(require('./entity/org_filter')(app), 'base', 'Organ');
+
+    schema.pre('save', async (next) => {
+        /**在此定义变量或引入模块*/
+        next();
+    })
+
+    schema.post('save', function(doc, next) {
+        /**在此定义变量或引入模块*/
+        next();
+    });
+
+    return schema;
 };

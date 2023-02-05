@@ -1,27 +1,17 @@
 'use strict';
 
 module.exports = app => {
-  const attributes = {
-    telephone: {
-      name: '手机号',
-      type: String,
-    },
-    templateCode: {
-      name: '模板号',
-      type: String,
-    },
-    response: {
-      name: '回执',
-      type: Object,
-    },
-    sendParams: {
-      name: '发送配置',
-      type: Object,
-    },
-    noticeStrDate: {
-      name: '提醒消息频率控制字段',
-      type: String,
-    },
-  };
-  return app.MongoEntity(attributes);
+    const schema = app.MongoEntity(require('./entity/log_sms')(app), 'base', 'Global');
+
+    schema.pre('save', async (next) => {
+        /**在此定义变量或引入模块*/
+        next();
+    })
+
+    schema.post('save', function(doc, next) {
+        /**在此定义变量或引入模块*/
+        next();
+    });
+
+    return schema;
 };

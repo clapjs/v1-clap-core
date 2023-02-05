@@ -1,21 +1,17 @@
 'use strict';
 
 module.exports = app => {
-  const attributes = {
-    idApplication: {
-      name: 'idApplication',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'cdp_application',
-    },
-    idApplicationParams: {
-      name: 'idApplicationParams',
-      type: app.Mongoose.Schema.ObjectId,
-      ref: 'cdp_application_params',
-    },
-    value: {
-      name: 'value',
-      type: String,
-    },
-  };
-  return app.MongoEntity(attributes);
+    const schema = app.MongoEntity(require('./entity/org_application_params')(app), 'base', 'Organ');
+
+    schema.pre('save', async (next) => {
+        /**在此定义变量或引入模块*/
+        next();
+    })
+
+    schema.post('save', function(doc, next) {
+        /**在此定义变量或引入模块*/
+        next();
+    });
+
+    return schema;
 };

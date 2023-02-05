@@ -1,15 +1,17 @@
 'use strict';
 
 module.exports = app => {
-  const attributes = {
-    roleCode: {
-      name: '角色编码',
-      type: String,
-    },
-    roleName: {
-      name: '角色名称',
-      type: String,
-    },
-  };
-  return app.MongoEntity(attributes);
+    const schema = app.MongoEntity(require('./entity/sys_role')(app), 'base', 'Global');
+
+    schema.pre('save', async (next) => {
+        /**在此定义变量或引入模块*/
+        next();
+    })
+
+    schema.post('save', function(doc, next) {
+        /**在此定义变量或引入模块*/
+        next();
+    });
+
+    return schema;
 };
