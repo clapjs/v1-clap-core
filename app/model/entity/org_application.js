@@ -3,7 +3,8 @@ module.exports = app => {
     return {
         idApplication: {
             name: 'idApplication',
-            type: app.Mongoose.Schema.ObjectId
+            type: app.Mongoose.Schema.ObjectId,
+            ref: 'cdp_application'
         },
         version: {
             name: 'String',

@@ -37,15 +37,24 @@ class ClapModelCtrl extends Controller {
       code: '0',
     };
 
-    const getCount=async ()=>{
-      return await ctx.collection.countDocuments(filter)
-    }
+    const getCount = async () => {
+      return await ctx.collection.countDocuments(filter);
+    };
 
-    const getRecords=async ()=>{
+    const getRecords = async () => {
       let records = await ctx.collection.find(filter, project)
-          .sort(order)
-          .skip(skip)
-          .limit(limit)
+        .sort(order)
+        .skip(skip)
+        .limit(limit)
+        .catch(e => {
+          if (e) {
+            error.code = e.code;
+            error.message = e.message;
+          }
+          console.info(e);
+        });
+      if (populate) {
+        records = await ctx.collection.deepPopulate(records, populate.split(','))
           .catch(e => {
             if (e) {
               error.code = e.code;
@@ -53,18 +62,9 @@ class ClapModelCtrl extends Controller {
             }
             console.info(e);
           });
-      if (populate) {
-        records = await ctx.collection.deepPopulate(records, populate.split(','))
-            .catch(e => {
-              if (e) {
-                error.code = e.code;
-                error.message = e.message;
-              }
-              console.info(e);
-            });
       }
-      return records
-    }
+      return records;
+    };
 
     const [ count, records ] = await Promise.all([ getCount(), getRecords() ]);
 
@@ -285,11 +285,11 @@ class ClapModelCtrl extends Controller {
   async getByAggregate() {
     const { ctx } = this;
     const error = { code: '0' };
-    const { pipeline = []} = ctx.request.body;
+    const { pipeline = [] } = ctx.request.body;
     const { filter, order, skip, limit, populate } = GeneratorQuery(ctx.request.body);
     Object.keys(filter).length > 0 && pipeline.push({ $match: filter });
 
-    const getPagingPipeline=(order, skip, limit)=> {
+    const getPagingPipeline = (order, skip, limit) => {
       const pipeline = [];
       if (order && order.split(' ')[0]) {
         const sort = {};
@@ -300,14 +300,14 @@ class ClapModelCtrl extends Controller {
             sort[field] = 1;
           }
         });
-        pipeline.push({$sort: sort});
+        pipeline.push({ $sort: sort });
       }
-      pipeline.push({$skip: skip ? skip : 0});
+      pipeline.push({ $skip: skip ? skip : 0 });
       if (limit && limit !== 0) {
-        pipeline.push({$limit: limit});
+        pipeline.push({ $limit: limit });
       }
       return pipeline;
-    }
+    };
 
     const getCount = async () => {
       return await ctx.collection.aggregate([ ...ctx.helper.objectToMongoObjectId(pipeline) ]).option({ allowDiskUse: true })
@@ -322,7 +322,7 @@ class ClapModelCtrl extends Controller {
         });
     };
     const getRecords = async () => {
-      return await ctx.collection.aggregate([ ...ctx.helper.objectToMongoObjectId(pipeline), ...getPagingPipeline(order, skip, limit)]).option({ allowDiskUse: true })
+      return await ctx.collection.aggregate([ ...ctx.helper.objectToMongoObjectId(pipeline), ...getPagingPipeline(order, skip, limit) ]).option({ allowDiskUse: true })
         .catch(e => {
           if (e) {
             error.code = e.code;

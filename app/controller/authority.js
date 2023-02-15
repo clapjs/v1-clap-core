@@ -459,7 +459,7 @@ class ClapAuthCtrl extends Controller {
     }
     if (error.code === '0') {
       const user = await this.getUser(this.ctx.request.query.access_token, this.ctx.request.query.organ);
-      const aggregate = await this.ctx.model.CdpMenuButton.aggregate([
+      const aggregate = await this.ctx.model.CdpButton.aggregate([
         {
           $match: {
             idMenu: new this.ctx.app.Mongoose.Types.ObjectId(this.ctx.request.query.menu),

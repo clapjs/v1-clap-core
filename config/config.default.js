@@ -1,4 +1,5 @@
 'use strict';
+const path = require('path');
 
 module.exports = appInfo => {
   const config = {};
@@ -22,18 +23,18 @@ module.exports = appInfo => {
     csrf: {
       enable: false,
     },
-    domainWhiteList: ['*']
+    domainWhiteList: [ '*' ],
   };
 
   config.cors = {
-    allowHeaders: ['context-type', 'content-type', 'X-Requested-With', 'x-csrf-token'],
+    allowHeaders: [ 'context-type', 'content-type', 'X-Requested-With', 'x-csrf-token' ],
     allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
     credentials: true,
   };
 
   config.static = {
     prefix: '/',
-    dir: require('path').join(appInfo.baseDir, 'app/public'),
+    dir: [ path.join(appInfo.baseDir, 'app/public'), { prefix: '/assets', dir: path.join(appInfo.baseDir, 'app/assets') }],
     dynamic: true,
     preload: true,
     buffer: false,
@@ -48,7 +49,7 @@ module.exports = appInfo => {
     defaultViewEngine: 'nunjucks',
     root: [
       require('path').join(appInfo.baseDir, 'app/views'),
-    ].join(',')
+    ].join(','),
   };
 
   return config;

@@ -3,7 +3,8 @@ module.exports = app => {
     return {
         idApplication: {
             name: '所属应用',
-            type: app.Mongoose.Schema.ObjectId
+            type: app.Mongoose.Schema.ObjectId,
+            ref: 'cdp_application'
         },
         code: {
             name: '参数编码',
